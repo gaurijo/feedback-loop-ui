@@ -1,0 +1,39 @@
+form {
+  align-items: space-around;
+  background: #FFF;
+  border-radius: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 24px;
+  height: 500px;
+  justify-content: center;
+  margin-top: 100px;
+  padding: 20px;
+  width: 400px;
+}
+
+h2 {
+  font-size: 40px;
+  font-weight: lighter;
+}
+
+input {
+  border-radius: 25px;
+  height: 50px;
+  padding-left: 25px;
+  margin-top: 10px;
+  outline: none;
+  width: 100%;
+}
+
+button {
+  background: #22223B;
+  border-radius: 25px;
+  color: #FFF;
+  height: 50px;
+  width: 50%;
+}
+
+button:hover {
+  background: #414358;
+}

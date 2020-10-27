@@ -1,0 +1,17 @@
+header {
+  align-items: center;
+  color: #FFF;
+  display: flex;
+  height: 20vh;
+}
+
+h1 {
+  margin: 20px;
+  font-size: 56px;
+}
+
+.main {
+  display: flex;
+  height: 80vh;
+  justify-content: center;
+}
