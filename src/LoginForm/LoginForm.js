@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { login } from '../apiCalls';
 import './LoginForm.css';
 
 export default class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
+      email: '',
       password: '',
-      errorMsg: ''
+      errorMsg: '',
+      redirect: false
     }
   }
 
@@ -16,14 +19,21 @@ export default class LoginForm extends Component {
   }
 
   validateInputs() {
-    const { username, password } = this.state;
-    return !!(username.trim() && password.trim());
+    const { email, password } = this.state;
+    return !!(email.trim() && password.trim());
   }
 
-  login = e => {
+  signInUser = async e => {
     e.preventDefault();
     if (this.validateInputs()) {
-      this.setState({ username: '', password: '', errorMsg: '' });
+      try {
+        const { email, password } = this.state;
+        const user = await login({ email, password });
+        this.props.updateUser(user);
+        this.setState({ redirect: true });
+      } catch (e) {
+        this.setState({ email: '', password: '', errorMsg: 'Email and password do not match.  Try again.' });
+      }
     } else {
       this.setState({ errorMsg: 'Please fill out both inputs.' })
     }
@@ -32,17 +42,20 @@ export default class LoginForm extends Component {
 
 
   render() {
-    const { username, password, errorMsg } = this.state;
+    const { email, password, errorMsg, redirect } = this.state;
+    if (redirect) {
+      return <Redirect push to="/dashboard" />;
+    }
     return (
       <form>
-        <h2>Sign In</h2>
+        <h2>Please Sign In</h2>
         <label>
-          Username
+          Email
         <input
-            type='text'
-            placeholder='Username'
-            name='username'
-            value={username}
+            type='email'
+            placeholder='Email'
+            name='email'
+            value={email}
             onChange={this.updateForm}
           />
         </label>
@@ -57,7 +70,9 @@ export default class LoginForm extends Component {
           />
         </label>
         <p>{errorMsg && errorMsg}</p>
-        <button onClick={this.login}>Login</button>
+          <button onClick={this.signInUser}>
+            Login
+          </button>
       </form>
     )
   }

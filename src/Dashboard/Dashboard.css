@@ -1,0 +1,25 @@
+.dashboard {
+  display: flex;
+  height: 90%;
+  width: 90%;
+}
+
+.dashboard section {
+  background: #FFF;
+  box-shadow: 0 0 40px #000;
+}
+
+.feedback {
+  margin-right: 20px;
+  width: 60%;
+}
+
+
+.team {
+  width: 40%;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+}
