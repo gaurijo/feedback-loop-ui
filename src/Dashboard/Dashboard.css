@@ -1,25 +1,33 @@
 .dashboard {
   display: flex;
-  height: 90%;
+  height: 95%;
   width: 90%;
 }
 
-.dashboard section {
+.dashboard section, table {
   background: #FFF;
   box-shadow: 0 0 40px #000;
 }
 
 .feedback {
   margin-right: 20px;
+  overflow: scroll;
   width: 60%;
 }
 
-
 .team {
+  overflow: scroll;
   width: 40%;
 }
 
-ul {
-  display: flex;
-  flex-direction: column;
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead tr {
+  background-color: #333;
+  color: #fff;
+  font-size: 20px;
+  height: 50px;
 }

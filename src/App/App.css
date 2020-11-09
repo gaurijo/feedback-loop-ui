@@ -2,16 +2,17 @@ header {
   align-items: center;
   color: #FFF;
   display: flex;
-  height: 20vh;
+  height: 15vh;
+  justify-content: center;
 }
 
 h1 {
-  margin-left: 50px;
+  width: 90%;
   font-size: 56px;
 }
 
 .main {
   display: flex;
-  height: 80vh;
+  height: 85vh;
   justify-content: center;
 }

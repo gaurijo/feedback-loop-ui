@@ -26,3 +26,29 @@ export const getTeammates = async userId => {
   const user = await response.json();
   return user;
 }
+
+export const getFeedback = async userId => {
+  const url = `http://localhost:3001/api/v1/users/${userId}/feedback`;
+
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error('Unable to find user\'s feedback.')
+  }
+  const user = await response.json();
+  return user;
+}
+
+export const getAdditionalInfo = feedback => {
+  const additionalInfo = feedback.map(async message => {
+    const url = `http://localhost:3001/api/v1/users/${message.senderId}`
+
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error('Unable to find user\'s teammates.')
+    }
+    const user = await response.json();
+    return { ...user, feedback: message.feedback };
+  })
+
+  return Promise.all(additionalInfo)
+}
