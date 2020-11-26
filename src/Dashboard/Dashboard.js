@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import Teammate from '../Teammate/Teammate';
 import Feedback from '../Feedback/Feedback';
 import './Dashboard.css';

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import LoginForm from '../LoginForm/LoginForm';
 import Dashboard from '../Dashboard/Dashboard'
+import FeedbackView from '../FeedbackView/FeedbackView'
 import { getTeammates, getFeedback, getAdditionalInfo } from '../apiCalls';
 import './App.css';
 
@@ -35,11 +36,14 @@ class App extends Component {
           <Route exact path='/dashboard' render={() => <Dashboard {...user} />} />
           <Route exact path='/feedback/:id' render={({ match }) => {
             const { id } = match.params;
-            const foundTeammate = user.team.find(teammate => teammate.id == id);
-            console.log(foundTeammate);
-            // <FeedbackView />
-          }
-          } />
+            const foundTeammate = user.team.find(teammate => teammate.id === parseInt(id));
+            return <FeedbackView
+              user={user}
+              receiverId={foundTeammate.id}
+              name={foundTeammate.name}
+              updateUser={this.updateUser}
+            />
+          }} />
         </section>
       </div>
     );

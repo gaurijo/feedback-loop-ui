@@ -69,10 +69,10 @@ export default class LoginForm extends Component {
             onChange={this.updateForm}
           />
         </label>
-        <p>{errorMsg && errorMsg}</p>
-          <button onClick={this.signInUser}>
-            Login
-          </button>
+        {errorMsg && <p>{errorMsg}</p>}
+        <button onClick={this.signInUser}>
+          Login
+        </button>
       </form>
     )
   }

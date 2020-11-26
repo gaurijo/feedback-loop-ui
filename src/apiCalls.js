@@ -52,3 +52,21 @@ export const getAdditionalInfo = feedback => {
 
   return Promise.all(additionalInfo)
 }
+
+export const sendFeedback = async (senderId, receiverId, feedback) => {
+  const url = `http://localhost:3001/api/v1/users/${senderId}/feedback/${receiverId}`;
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(feedback),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  const response = await fetch(url, options);
+  
+  if (!response.ok) {
+    const { message: errorMsg } = await response.json()
+    throw new Error(errorMsg)
+  }
+}

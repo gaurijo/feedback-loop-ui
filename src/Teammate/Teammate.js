@@ -6,14 +6,14 @@ import redX from '../assets/red-x.png';
 
 const Teammate = ({ email, id, image, name, delivered, history }) => {
   return (
-      <tr onClick={() => history.push(`/feedback/${id}`)}>
+      <tr className ={!delivered ? "highlight" : ''} onClick={() => !delivered && history.push(`/feedback/${id}`)}>
         <td>
           <img className="profile" src={image} alt='' />
         </td>
         <td>{name}</td>
         <td>{email}</td>
         <td>
-          <img className="complete" src={delivered ? greenCheck : redX} />
+          <img className="complete" src={delivered ? greenCheck : redX} alt='' />
         </td>
       </tr>
   )
