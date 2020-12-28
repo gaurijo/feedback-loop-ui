@@ -1,13 +1,13 @@
 tbody tr {
   border-bottom: 2px solid #000;
   transition: box-shadow 0.3s ease-in-out;
-  cursor: pointer;
   height: 100px;
   width: 100%;
 }
 
 .highlight:hover {
   box-shadow: inset 15px 0 0 0 #11F0FC;
+  cursor: pointer;
 }
 
 tr:nth-child(even) {
