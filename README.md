@@ -23,4 +23,4 @@ npm i
 ```
 npm start
 ```
-5. Follow instructions for installing the [server](https://github.com/turingschool-examples/ideabox-api) IN A DIFFERENT DIRECTORY.
+5. Follow instructions for installing the [server](https://github.com/turingschool-examples/feedback-loop-api) IN A DIFFERENT DIRECTORY.
