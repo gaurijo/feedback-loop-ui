@@ -31,8 +31,8 @@ export default class LoginForm extends Component {
         const user = await login({ email, password });
         this.props.updateUser(user);
         this.setState({ redirect: true });
-      } catch (e) {
-        this.setState({ email: '', password: '', errorMsg: 'Email and password do not match.  Try again.' });
+      } catch ({ message }) {
+        this.setState({ email: '', password: '', errorMsg: message });
       }
     } else {
       this.setState({ errorMsg: 'Please fill out both inputs.' })

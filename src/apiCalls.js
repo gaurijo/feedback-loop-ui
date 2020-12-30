@@ -10,7 +10,7 @@ export const login = async loginInfo => {
 
   const response = await fetch(url, options)
   if (!response.ok) {
-    throw new Error('Please check that your username & password are correct.')
+    throw new Error('Email and password do not match.  Please try again.')
   }
   const user = await response.json();
   return user;
