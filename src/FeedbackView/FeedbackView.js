@@ -1,70 +1,59 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { sendFeedback } from '../apiCalls';
 import './FeedbackView.css'
 
-export default class FeedbackView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      feedback: '',
-      successMsg: '',
-      errorMsg: '',
-      redirect: false
-    }
-  }
+const FeedbackView = (props) => {
+  const [feedback, setFeedback] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  updateForm = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  submitFeedback = async e => {
+  const submitFeedback = async e => {
     e.preventDefault();
     try {
-      const { user, receiverId, updateUser } = this.props;
-      const { feedback } = this.state;
+      const { user, receiverId, updateUser } = props;
       await sendFeedback(user.id, receiverId, { feedback });
-      this.setState({ errorMsg: '', successMsg: 'Feedback sent!  Please return to the dashboard.' })
+      setErrorMsg('');
+      setSuccessMsg('Feedback sent!  Please return to the dashboard.');
       updateUser(user);
     } catch ({ message }) {
-      this.setState({ errorMsg: message })
+      setErrorMsg(message);
     }
   }
 
-  render() {
-    const { name } = this.props;
-    const { feedback, errorMsg, successMsg } = this.state;
-    const isDisabled =  !feedback.trim();
-    return (
-      <form className="feedback-form">
-        <h2>{'Feedback For'}</h2>
-        <label>{name}
-          {!successMsg &&
-            <textarea
-              type='text'
-              placeholder='Feedback'
-              name='feedback'
-              value={feedback}
-              onChange={this.updateForm}
-            >
-            </textarea>
-          }
-        </label>
-        {errorMsg && <p>{errorMsg}</p>}
-        {successMsg && <p>{successMsg}</p>}
-        {!errorMsg && !successMsg &&
-          <button className={isDisabled ? 'disabled' : ''} disabled={isDisabled} onClick={this.submitFeedback}>
-            Submit
+  const { name } = props;
+  const isDisabled =  !feedback.trim();
+  return (
+    <form className="feedback-form">
+      <h2>{'Feedback For'}</h2>
+      <label>{name}
+        {!successMsg &&
+          <textarea
+            type='text'
+            placeholder='Feedback'
+            name='feedback'
+            value={feedback}
+            onChange={event => setFeedback(event.target.value)}
+          >
+          </textarea>
+        }
+      </label>
+      {errorMsg && <p>{errorMsg}</p>}
+      {successMsg && <p>{successMsg}</p>}
+      {!errorMsg && !successMsg &&
+        <button className={isDisabled ? 'disabled' : ''} disabled={isDisabled} onClick={submitFeedback}>
+          Submit
+        </button>
+      }
+      {(errorMsg || successMsg) &&
+        <Link to="/dashboard">
+          <button>
+            Back to Dashboard
           </button>
-        }
-        {(errorMsg || successMsg) &&
-          <Link to="/dashboard">
-            <button>
-              Back to Dashboard
-            </button>
-          </Link>
-        }
-      </form>
-    )
-  }
+        </Link>
+      }
+    </form>
+  )
 }
+
+export default FeedbackView;
