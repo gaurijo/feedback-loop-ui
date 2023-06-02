@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router-dom';
 import './Teammate.css';
 import greenCheck from '../assets/green-check.png'
 import redX from '../assets/red-x.png';
@@ -19,4 +19,6 @@ const Teammate = ({ email, id, image, name, delivered, history }) => {
   )
 }
 
-export default withRouter(Teammate);
+export default Teammate;
+// export default withRouter(Teammate);
+// 

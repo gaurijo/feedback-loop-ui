@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginForm from '../LoginForm/LoginForm';
 import Dashboard from '../Dashboard/Dashboard'
 import FeedbackView from '../FeedbackView/FeedbackView'
@@ -20,25 +20,45 @@ const App = () => {
   }
 
   return (
+    <BrowserRouter>
     <div className="App">
       <header>
         <h1>Feedback Loop</h1>
       </header>
       <section className="main">
-        <Route exact path='/' render={() => <LoginForm updateUser={updateUser} />} />
-        <Route exact path='/dashboard' render={() => <Dashboard {...user} />} />
-        <Route exact path='/feedback/:id' render={({ match }) => {
+        <Routes>
+
+        {/* <Route exact path='/' render={() => <LoginForm updateUser={updateUser} />} /> */}
+        <Route path='/' element={<LoginForm updateUser={updateUser}/>} />
+        <Route path='/dashboard' element={<Dashboard {...user} />} />
+        <Route path='/feedback/:id' render={({ match }) => {
           const { id } = match.params;
           const foundTeammate = user.team.find(teammate => teammate.id === parseInt(id));
           return <FeedbackView
-            user={user}
-            receiverId={foundTeammate.id}
-            name={foundTeammate.name}
-            updateUser={updateUser}
+          user={user}
+          receiverId={foundTeammate.id}
+          name={foundTeammate.name}
+          updateUser={updateUser}
           />
         }} />
+
+        {/* <Route exact path='/dashboard' render={() => <Dashboard {...user} />} /> */}
+
+        {/* <Route exact path='/feedback/:id' render={({ match }) => {
+          const { id } = match.params;
+          const foundTeammate = user.team.find(teammate => teammate.id === parseInt(id));
+          return <FeedbackView
+          user={user}
+          receiverId={foundTeammate.id}
+          name={foundTeammate.name}
+          updateUser={updateUser}
+          />
+        }} /> */}
+
+        </Routes>
       </section>
     </div>
+    </BrowserRouter>
   );
 }
 

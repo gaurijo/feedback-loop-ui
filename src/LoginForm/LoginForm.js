@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../apiCalls';
 import './LoginForm.css';
 
@@ -8,6 +8,7 @@ const LoginForm = (props) => {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const validateInputs = () => {
     return !!(email.trim() && password.trim());
@@ -31,7 +32,9 @@ const LoginForm = (props) => {
   }
 
   if (redirect) {
-    return <Redirect push to="/dashboard" />;
+    //<Navigate> in v6???
+    // return <Redirect push to="/dashboard" />;
+    navigate('/dashboard')
   }
   return (
     <form>
