@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { sendFeedback } from '../apiCalls';
 import './FeedbackView.css'
 
@@ -8,11 +8,14 @@ const FeedbackView = (props) => {
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
+  const params = useParams();
+  const selectedTeammate = props.user.team.find(teammate => teammate.id === parseInt(params.id));
+
   const submitFeedback = async e => {
     e.preventDefault();
     try {
-      const { user, receiverId, updateUser } = props;
-      await sendFeedback(user.id, receiverId, { feedback });
+      const { user, updateUser } = props;
+      await sendFeedback(user.id, selectedTeammate.id, { feedback });
       setErrorMsg('');
       setSuccessMsg('Feedback sent!  Please return to the dashboard.');
       updateUser(user);
@@ -21,7 +24,8 @@ const FeedbackView = (props) => {
     }
   }
 
-  const { name } = props;
+
+  const { name } = selectedTeammate;
   const isDisabled =  !feedback.trim();
   return (
     <form className="feedback-form">

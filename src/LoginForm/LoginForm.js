@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../apiCalls';
 import './LoginForm.css';
@@ -7,7 +7,6 @@ const LoginForm = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
 
   const validateInputs = () => {
@@ -20,7 +19,7 @@ const LoginForm = (props) => {
       try {
         const user = await login({ email, password });
         props.updateUser(user);
-        setRedirect(true)
+        navigate('/dashboard')
       } catch ({ message }) {
         setEmail('')
         setPassword('')
@@ -31,11 +30,6 @@ const LoginForm = (props) => {
     }
   }
 
-  if (redirect) {
-    //<Navigate> in v6???
-    // return <Redirect push to="/dashboard" />;
-    navigate('/dashboard')
-  }
   return (
     <form>
       <h2>Please Sign In</h2>
@@ -60,7 +54,7 @@ const LoginForm = (props) => {
         />
       </label>
       {errorMsg && <p>{errorMsg}</p>}
-      <button onClick={signInUser}>
+      <button onClick={(event) => signInUser(event)}>
         Login
       </button>
     </form>
