@@ -2,7 +2,6 @@ import React from 'react';
 import './Feedback.css';
 
 const Feedback = ({ image, name, feedback}) => {
-
   return (
     <article className="message">
       <img src={image} alt='' />

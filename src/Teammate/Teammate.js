@@ -1,12 +1,13 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import './Teammate.css';
 import greenCheck from '../assets/green-check.png'
 import redX from '../assets/red-x.png';
 
 const Teammate = ({ email, id, image, name, delivered, history }) => {
+  const navigate = useNavigate();
   return (
-      <tr className ={!delivered ? "highlight" : ''} onClick={() => !delivered && history.push(`/feedback/${id}`)}>
+      <tr className ={!delivered ? "highlight" : ''} onClick={() => {if(!delivered) return navigate(`/feedback/${id}`)}}>
         <td>
           <img className="profile" src={image} alt='' />
         </td>
@@ -19,4 +20,4 @@ const Teammate = ({ email, id, image, name, delivered, history }) => {
   )
 }
 
-export default withRouter(Teammate);
+export default Teammate;
